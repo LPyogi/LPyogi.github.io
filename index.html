@@ -51,11 +51,11 @@
     </style>
     <script>
     function initMap() {
-      var map = new google.maps.Map(document.getElementById('map'), {zoom: 14, center: {lat: 19.076656,lng: 72.877176}, mapTypeId: 'hybrid'});
+      var map = new google.maps.Map(document.getElementById('map'), {zoom: 13, center: {lat: 19.076656,lng: 72.877176}, mapTypeId: 'hybrid'});
           }
       function markers() {
 
-            var map = new google.maps.Map(document.getElementById('map'), {zoom: 14, center: {lat: 19.076656,lng: 72.877176}, mapTypeId: 'hybrid'});
+            var map = new google.maps.Map(document.getElementById('map'), {zoom: 13, center: {lat: 19.076656,lng: 72.877176}, mapTypeId: 'hybrid'});
               var locations = [['Andheri Fire Station', 19.112269, 72.840663], ['B Ward Office', 18.9614551, 72.8333212], ['Bandra Fire Station', 19.0503912, 72.8374773], ['Bhandup Complex', 19.1599078, 72.9239095], ['BKC Fire Station', 19.0703913, 72.8681195],
              ['Borivali Fire Station', 19.2296608, 72.8406847], ['Britannia Storm Water Pumping Station Mumbai', 18.9784538, 72.8121079], ['Building Proposal Office Vikhroli', 19.1176878, 72.92642], ['Byculla Fire Station', 18.9724232, 72.8319586], ['C Ward Office', 18.946123, 72.8249009], ['Chembur Fire Station', 19.0545687, 72.89359],
              ['City Institute Of Disaster Management parel', 18.9949756, 72.8405544],['Chincholi Fire Station', 19.112269, 72.840663], ['Colaba Fire Station', 18.9154742, 72.8260795], ['Colaba Pumping Station', 18.9076674, 72.8178695], ['Cooper Hospital', 19.1077678, 72.8362055], ['D Ward Office', 19.0222358, 72.8664991],
@@ -94,7 +94,7 @@
 }
 function Theatmap() {
   var heatmap;
-  var map = new google.maps.Map(document.getElementById('map'), {zoom: 14, center: {lat: 19.076656,lng: 72.877176}, mapTypeId: 'satellite'});
+  var map = new google.maps.Map(document.getElementById('map'), {zoom: 13, center: {lat: 19.076656,lng: 72.877176}, mapTypeId: 'roadmap'});
   var spreadsheetID = '1iiTSauIbSLKFAuhSJkDd-tNv4r1rUD3XAf1FXHSgtPg';
   var worksheetID = 'od6';
   var i;
@@ -115,17 +115,20 @@ function Theatmap() {
      $.each(data.feed.entry,function(i,val){
       var n = parseFloat(val.gsx$hr_4.$t);
       if(n>0){
-          if(i<40){  ht = new google.maps.LatLng(locations[i][1], locations[i][2]);
+          if(i<40){  ht = new google.maps.LatLng(locations[2][1], locations[2][2]);
             htdata.push(ht);}
             }
      });
-   })
-var pointArray = new google.maps.MVCArray(htdata);
- heatmap = new google.maps.visualization.HeatmapLayer({
+   cal(htdata);
+ })
+
+   function cal(htdata)
+   {var pointArray = new google.maps.MVCArray(htdata);
+     heatmap = new google.maps.visualization.HeatmapLayer({
              data: pointArray,
              map: map,
              radius: 200
-           });
+           });}
 }
     </script>
   </head>
