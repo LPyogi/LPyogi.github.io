@@ -115,7 +115,7 @@ function Theatmap() {
      $.each(data.feed.entry,function(i,val){
       var n = parseFloat(val.gsx$hr_4.$t);
       if(n>0){
-          if(i<40){  ht = new google.maps.LatLng(locations[2][1], locations[2][2]);
+          if(i<40){  ht = new google.maps.LatLng(locations[i][1], locations[i][2]);
             htdata.push(ht);}
             }
      });
