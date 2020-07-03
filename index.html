@@ -94,7 +94,7 @@
 }
 function Theatmap() {
   var heatmap;
-  var map = new google.maps.Map(document.getElementById('map'), {zoom: 14, center: {lat: 19.076656,lng: 72.877176}, mapTypeId: 'roadmap'});
+  var map = new google.maps.Map(document.getElementById('map'), {zoom: 14, center: {lat: 19.076656,lng: 72.877176}, mapTypeId: 'satellite'});
   var spreadsheetID = '1iiTSauIbSLKFAuhSJkDd-tNv4r1rUD3XAf1FXHSgtPg';
   var worksheetID = 'od6';
   var i;
@@ -115,7 +115,7 @@ function Theatmap() {
      $.each(data.feed.entry,function(i,val){
       var n = parseFloat(val.gsx$hr_4.$t);
       if(n>0){
-          if(i<40){  ht = new google.maps.LatLng(locations[2][1], locations[2][2]);
+          if(i<40){  ht = new google.maps.LatLng(locations[i][1], locations[i][2]);
             htdata.push(ht);}
             }
      });
