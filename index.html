@@ -201,13 +201,13 @@ var legend = document.getElementById('legend');
     legend.appendChild(div);
 
 map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
-var desiredRadiusPerPointInMeters = 2000;
+var desiredRadiusPerPointInMeters = 500;
   function getNewRadius() {
 
 
       var numTiles = 1 << map.getZoom();
       var center = map.getCenter();
-      var moved = google.maps.geometry.spherical.computeOffset(center, 20000, 90); /*1000 meters to the right*/
+      var moved = google.maps.geometry.spherical.computeOffset(center, 5000, 90); /*1000 meters to the right*/
       var projection = new MercatorProjection();
       var initCoord = projection.fromLatLngToPoint(center);
       var endCoord = projection.fromLatLngToPoint(moved);
