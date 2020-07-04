@@ -24,7 +24,19 @@
         margin: 0;
         padding: 0;
       }
-
+      #legend {
+             font-family: Arial, sans-serif;
+             background: #fff;
+             padding: 10px;
+             margin: 10px;
+             border: 3px solid #000;
+           }
+           #legend h3 {
+             margin-top: 0;
+           }
+           #legend img {
+             vertical-align: middle;
+           }
       #floating-panel {
         position: absolute;
         top: 10px;
@@ -51,11 +63,22 @@
     </style>
     <script>
     function initMap() {
-      var map = new google.maps.Map(document.getElementById('map'), {zoom: 13, center: {lat: 19.076656,lng: 72.877176}, mapTypeId: 'hybrid'});
-          }
+      var map = new google.maps.Map(document.getElementById('map'), {zoom: 13, center: {lat: 19.076656,lng: 72.877176},styles: [{"featureType":"administrative","elementType":"all","stylers":[{"visibility":"off"}]},
+      {"featureType":"landscape","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"poi","elementType":"labels","stylers":[{"visibility":"on"}]},
+      {"featureType":"poi.attraction","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"poi.business","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"poi.government","elementType":"all","stylers":[{"visibility":"on"}]},
+      {"featureType":"poi.medical","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"poi.park","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"poi.place_of_worship","elementType":"all","stylers":[{"visibility":"simplified"}]},
+      {"featureType":"poi.school","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"off"}]},
+      {"featureType":"road.highway","elementType":"all","stylers":[{"visibility":"on"},{"hue":"#ff0000"}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"visibility":"on"}]},
+      {"featureType":"road.highway","elementType":"labels","stylers":[{"visibility":"on"}]},{"featureType":"road.highway.controlled_access","elementType":"all","stylers":[{"visibility":"on"},{"hue":"#ff3500"}]},
+      {"featureType":"road.arterial","elementType":"all","stylers":[{"visibility":"on"},{"hue":"#acff00"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"visibility":"on"}]},
+      {"featureType":"road.arterial","elementType":"labels","stylers":[{"visibility":"on"}]},{"featureType":"road.local","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"road.local","elementType":"labels","stylers":[{"visibility":"on"}]},
+      {"featureType":"transit","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"transit","elementType":"labels","stylers":[{"visibility":"on"}]},
+      {"featureType":"transit.line","elementType":"geometry","stylers":[{"visibility":"on"},{"color":"#bfb6b6"}]},{"featureType":"transit.station","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"water","elementType":"all","stylers":[{"visibility":"on"}]},
+      {"featureType":"water","elementType":"geometry","stylers":[{"color":"#12608d"}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"labels.text.stroke","stylers":[{"visibility":"off"}]}]});
+    }
       function markers() {
 
-            var map = new google.maps.Map(document.getElementById('map'), {zoom: 13, center: {lat: 19.076656,lng: 72.877176}, mapTypeId: 'hybrid'});
+            var map = new google.maps.Map(document.getElementById('map'), {zoom: 13, center: {lat: 19.076656,lng: 72.877176}, mapTypeId: 'roadmaps'});
               var locations = [['Andheri Fire Station', 19.112269, 72.840663], ['B Ward Office', 18.9614551, 72.8333212], ['Bandra Fire Station', 19.0503912, 72.8374773], ['Bhandup Complex', 19.1599078, 72.9239095], ['BKC Fire Station', 19.0703913, 72.8681195],
              ['Borivali Fire Station', 19.2296608, 72.8406847], ['Britannia Storm Water Pumping Station Mumbai', 18.9784538, 72.8121079], ['Building Proposal Office Vikhroli', 19.1176878, 72.92642], ['Byculla Fire Station', 18.9724232, 72.8319586], ['C Ward Office', 18.946123, 72.8249009], ['Chembur Fire Station', 19.0545687, 72.89359],
              ['City Institute Of Disaster Management parel', 18.9949756, 72.8405544],['Chincholi Fire Station', 19.112269, 72.840663], ['Colaba Fire Station', 18.9154742, 72.8260795], ['Colaba Pumping Station', 18.9076674, 72.8178695], ['Cooper Hospital', 19.1077678, 72.8362055], ['D Ward Office', 19.0222358, 72.8664991],
@@ -73,7 +96,7 @@
 
            	$.getJSON(url,function(data){
            		$.each(data.feed.entry,function(i,val){
-                var cont = "15 Min : " + val.gsx$min.$t + " 1 Hour : " + val.gsx$min_2.$t + " 3 Hours : " + val.gsx$hr.$t + " 6 Hours : " + val.gsx$hr_2.$t + " 12 Hours : " + val.gsx$hr_3.$t + " 24 Hours : " + val.gsx$hr_4.$t;
+                var cont = "15 Min : " + val.gsx$min.$t + '<br>' + " 1 Hour : " + val.gsx$min_2.$t + '<br>' + " 6 Hours : " + val.gsx$hr_2.$t  + '<br>' + " 24 Hours : " + val.gsx$hr_4.$t ;
                 contents.push(cont);
            		});
            	})
@@ -82,6 +105,7 @@
           for (i = 0; i < locations.length; i++) {
              marker = new google.maps.Marker({
                position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+               icon: "w.png",
                map: map
              });
              google.maps.event.addListener(marker, 'click', (function(marker, i) {
@@ -91,6 +115,14 @@
                 }
               })(marker, i));
         }
+        var legend = document.getElementById('legend');
+            var name = "Rain Gauge Stations";
+            var icon = 'w.png';
+            var div = document.createElement('div');
+            div.innerHTML = '<img src="' + icon + '"> ' + name;
+            legend.appendChild(div);
+
+        map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
 }
 function Theatmap() {
   var heatmap;
@@ -151,15 +183,24 @@ function Theatmap() {
 function cal2(contents){ for (i = 0; i < contents.length; i++) {
     marker = new google.maps.Marker({
       position: new google.maps.LatLng(contents[i][1], contents[i][2]),
+      icon: 'w2.png',
       map: map
     });
     google.maps.event.addListener(marker, 'click', (function(marker, i) {
        return function() {
-         infowindow.setContent('<h2>' + contents[i][0] +'</h2>');
+         infowindow.setContent('<h3>' + contents[i][0] +'</h3>');
          infowindow.open(map, marker);
        }
      })(marker, i));
 }}
+var legend = document.getElementById('legend');
+    var name = "Waterlogging Sites";
+    var icon = 'w2.png';
+    var div = document.createElement('div');
+    div.innerHTML = '<img src="' + icon + '"> ' + name;
+    legend.appendChild(div);
+
+map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
 var desiredRadiusPerPointInMeters = 2000;
   function getNewRadius() {
 
@@ -241,6 +282,7 @@ MercatorProjection.prototype.fromPointToLatLng = function (point) {
       <button onclick="markers()">Rainfall Data</button>
     </div>
     <div id="map"></div>
+    <div id="legend"><h3>Legend</h3></div>
   </body>
 </html>
 <!-- https://docs.google.com/spreadsheets/d/e/2PACX-1vSHZcrqvChvoYXbC3aOOHJvx9tuTQS5FXgEtZeRo0IA-kV9_t9rJRJkzM1xyredPCVcTwS9O-BMX1aF/pubhtml -->
